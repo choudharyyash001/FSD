@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My To-Do List</title>
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    color: #333;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 250px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 4px;
+}
+
+li span {
+    flex-grow: 1;
+}
+
+li button {
+    margin-left: 10px;
+    background-color: #28a745;
+}
+
+li button:last-child {
+    background-color: #dc3545;
+}
+
+</style>
+<body>
+    <h1>My To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button id="addbtn">Add Task</button>
+    
+    <ul id="taskList"></ul>
+
+    <script>
+        const taskInput = document.getElementById("taskInput");
+        const addbtn = document.getElementById("addbtn");
+        const taskList = document.getElementById("taskList");
+
+        addbtn.addEventListener("click", addTask);
+
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if (taskText === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            const li = document.createElement("li");
+
+            const span = document.createElement("span");
+            span.textContent = taskText;
+
+            const tickBtn = document.createElement("button");
+            tickBtn.textContent = '✔️';
+            tickBtn.addEventListener("click", () => {
+                span.style.textDecoration = "line-through";
+            });
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = '❌';
+            deleteBtn.addEventListener("click", () => {
+                li.remove();
+            });
+
+            li.appendChild(span);
+            li.appendChild(tickBtn);
+            li.appendChild(deleteBtn);
+            taskList.appendChild(li);
+
+            taskInput.value = "";
+        }
+    </script>
+</body>
+</html>
